@@ -177,6 +177,14 @@
     &.card-rotate.bg-info .back{
       background: linear-gradient(60deg, $cyan-400, $cyan-600);
     }
+    .card-header-azul-escuro .card-icon,
+    .card-header-azul-escuro .card-text,
+    .card-header-azul-escuro:not(.card-header-icon):not(.card-header-text),
+    &.bg-azul-escuro,
+    &.card-rotate.bg-azul-escuro .front,
+    &.card-rotate.bg-azul-escuro .back{
+      background: linear-gradient(60deg, $indigo-800, $indigo-900); 
+    }
     .card-header-success .card-icon,
     .card-header-success .card-text,
     .card-header-success:not(.card-header-icon):not(.card-header-text),
@@ -241,6 +249,12 @@
     .card-header-info:not(.card-header-icon):not(.card-header-text),
     .card-header-info .card-text{
         @include shadow-big-color($brand-info);
+    }
+
+    .card-header-azul-escuro .card-icon,
+    .card-header-azul-escuro:not(.card-header-icon):not(.card-header-text),
+    .card-header-azul-escuro .card-text{
+        @include shadow-big-color($brand-azul-escuro);
     }
 
     .card-header-success .card-icon,

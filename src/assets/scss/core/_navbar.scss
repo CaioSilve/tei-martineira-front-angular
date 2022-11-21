@@ -132,6 +132,9 @@
     &.bg-info{
         @include navbar-colors($bg-info, $white-color);
     }
+    &.bg-azul-escuro{
+      @include navbar-colors($bg-azul-escuro, $white-color);
+  }
 
     &.bg-warning{
         @include navbar-colors($bg-warning, $white-color);
