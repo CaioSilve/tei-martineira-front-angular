@@ -7,11 +7,8 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { CadastroClienteComponent } from './cadastro-cliente/cadastro-cliente.component';
 import { LoginComponent } from './login/login.component';
-import { CadastroAnimaisComponent } from './cadastro-animais/cadastro-animais.component';
-import { ProdutosComponent } from './produtos/produtos.component';
-import { ConsultasComponent } from './consultas/consultas.component';
+
 
 @NgModule({
   imports: [

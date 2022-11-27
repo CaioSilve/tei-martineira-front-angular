@@ -1,104 +1,94 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-azul-escuro">
-                        <h4 class="card-title">Cadastro de Animais</h4>
-                        <p class="card-category"></p>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="row">
-                                <!-- <div class="col-md-5">
-                                  <mat-form-field class="example-full-width">
-                                      <input matInput placeholder="Company (disabled)" disabled>
-                                    </mat-form-field>
-                                </div> -->
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                      <input matInput placeholder="Usuário">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                      <input matInput placeholder="Email" type="email">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Fist Name" type="text">
-                                  </mat-form-field>
-                                </div>
-                                <div class="col-md-6">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Last Name" type="text">
-                                  </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Adress" type="text">
-                                  </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="City" type="text">
-                                  </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Country" type="text">
-                                  </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Postal Code" type="text">
-                                  </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                  <label>About Me</label>
-                                  <mat-form-field class="example-full-width">
-                                     <textarea matInput placeholder="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."></textarea>
-                                   </mat-form-field>
-                                    <!-- <div class="form-group">
-  
-                                        <div class="form-group">
-                                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-                                            <textarea class="form-control" rows="5"></textarea>
-                                        </div>
-                                    </div> -->
-                                </div>
-                            </div>
-                            <button mat-raised-button type="submit" class="btn btn-success pull-right">Adicionar</button>
-                            <div class="clearfix"></div>
-                        </form>
-                    </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-azul-escuro">
+            <h4 class="card-title">Cadastro de Animais</h4>
+            <p class="card-category"></p>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-md-4 col-12">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Nome" type="text" formControlName="nome">
+                  </mat-form-field>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-azul-escuro">
-                        <h4 class="card-title ">Animais</h4>
-                        <p class="card-category">Animais já cadastrados</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-
-                        </div>
-                    </div>
+                <div class="col-md-4 col-12">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Tipo</mat-label>
+                    <mat-select formControlName="tipo" (selectionChange)="tipoChange($event)">
+                      <mat-option></mat-option>
+                      <mat-option [value]="tipo.id" *ngFor="let tipo of tipos">{{ tipo.nome }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 </div>
-            </div>
+                <div class="col-md-4 col-12">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Raca</mat-label>
+                    <mat-select formControlName="raca">
+                      <mat-option></mat-option>
+                      <mat-option [value]="raca" *ngFor="let raca of racas">{{ raca }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-12">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Dono</mat-label>
+                    <mat-select formControlName="dono">
+                      <mat-option></mat-option>
+                      <mat-option [value]="dono.id" *ngFor="let dono of donos">{{ dono.nome }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4 col-12">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Cidade" type="text" formControlName="cidade">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4 col-12">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Endereco" type="text" formControlName="endereco">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-12">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Contato 1" type="text" formControlName="contato1">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4 col-12">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Contato 2" type="text" formControlName="contato2">
+                  </mat-form-field>
+                </div>
+              </div>
+              <button mat-raised-button type="submit" class="btn btn-success pull-right ml-2">Adicionar</button>
+              <button mat-raised-button class="btn btn-info pull-right" (click)="limpar()">Limpar</button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-azul-escuro">
+            <h4 class="card-title ">Animais</h4>
+            <p class="card-category">Animais já cadastrados</p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-  
