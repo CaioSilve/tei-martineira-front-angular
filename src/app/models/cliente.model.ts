@@ -1,5 +1,6 @@
 export class Cliente{
     nome: string
+    genero: string
     email: string
     cidade: string
     endereco: string

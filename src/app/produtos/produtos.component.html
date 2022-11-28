@@ -53,9 +53,10 @@
             <p class="card-category">Produtos já cadastrados</p>
           </div>
           <div class="card-body">
-            <div class="table-responsive">
-
-            </div>
+            <ngx-datatable class="material" [rows]="rowsResultado"
+                [columns]="[{ name: 'Descricão', prop: 'desc' }, { name: 'Tipo', prop: 'tipo.nome' }, { name: 'Quantidade', prop: 'qtde' }]" [columnMode]="ColumnMode.force"
+                [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [limit]="5">
+              </ngx-datatable>
           </div>
         </div>
       </div>

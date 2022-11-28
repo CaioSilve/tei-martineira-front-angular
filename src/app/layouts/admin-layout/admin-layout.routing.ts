@@ -12,6 +12,7 @@ import { UserProfileComponent } from 'app/user-profile/user-profile.component';
 import { CadastroAnimaisComponent } from 'app/cadastro-animais/cadastro-animais.component';
 import { ProdutosComponent } from 'app/produtos/produtos.component';
 import { ConsultasComponent } from 'app/consultas/consultas.component';
+import { SobrenosComponent } from 'app/sobrenos/sobrenos.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'login',                component: LoginComponent },
@@ -20,10 +21,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'cadastro-cliente',     component: CadastroClienteComponent },
     { path: 'cadastro-animais',     component: CadastroAnimaisComponent },
     { path: 'produtos',             component: ProdutosComponent },
+    { path: 'sobrenos',             component: SobrenosComponent},
     { path: 'consultas',            component: ConsultasComponent },
     { path: 'typography',           component: TypographyComponent },
-    { path: 'icons',                component: IconsComponent },
-    { path: 'maps',                 component: MapsComponent },
     { path: 'notifications',        component: NotificationsComponent },
     { path: 'user-profile',         component: UserProfileComponent}
 ];

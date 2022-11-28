@@ -35,7 +35,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-4 col-12">
+                <div class="col-md-6 col-12">
                   <mat-form-field appearance="fill">
                     <mat-label>Dono</mat-label>
                     <mat-select formControlName="dono">
@@ -44,26 +44,9 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="col-md-4 col-12">
+                <div class="col-md-6 col-12">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Cidade" type="text" formControlName="cidade">
-                  </mat-form-field>
-                </div>
-                <div class="col-md-4 col-12">
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Endereco" type="text" formControlName="endereco">
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4 col-12">
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Contato 1" type="text" formControlName="contato1">
-                  </mat-form-field>
-                </div>
-                <div class="col-md-4 col-12">
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Contato 2" type="text" formControlName="contato2">
+                    <input matInput placeholder="Idade" type="text" formControlName="idade">
                   </mat-form-field>
                 </div>
               </div>
@@ -83,9 +66,10 @@
             <p class="card-category">Animais já cadastrados</p>
           </div>
           <div class="card-body">
-            <div class="table-responsive">
-
-            </div>
+            <ngx-datatable class="material" [rows]="rowsResultado"
+                [columns]="[{ name: 'Nome', prop: 'nome' }, { name: 'Dono', prop: 'dono.nome' }, { name: 'Tipo', prop: 'tipo.nome' }, { name: 'Idade', prop: 'idade' }]" [columnMode]="ColumnMode.force"
+                [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [limit]="5">
+              </ngx-datatable>
           </div>
         </div>
       </div>

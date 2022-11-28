@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { ColumnMode } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'app-produtos',
@@ -7,6 +8,9 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./produtos.component.scss']
 })
 export class ProdutosComponent implements OnInit {
+
+  public rowsResultado = [];
+  ColumnMode = ColumnMode;
 
   tipos = [
     {id: 1, nome: 'Médico'},
@@ -18,12 +22,9 @@ export class ProdutosComponent implements OnInit {
 
   checkoutForm = this.formBuilder.group({
     desc: '',
-    raca: '',
-    cpf: '',
-    cidade: '',
-    endereco: '',
-    contato1: '',
-    contato2: ''
+    tipo: '',
+    valorunit: '',
+    qtde: ''
   });
 
   constructor(private formBuilder: FormBuilder) { }

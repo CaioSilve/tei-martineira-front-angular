@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
 
@@ -18,12 +19,13 @@ import { LoginComponent } from './login/login.component';
     HttpClientModule,
     ComponentsModule,
     RouterModule,
+    NgxDatatableModule,
     AppRoutingModule,
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent
+    LoginComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

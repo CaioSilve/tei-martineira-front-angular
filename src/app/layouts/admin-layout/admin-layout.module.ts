@@ -15,11 +15,13 @@ import {MatInputModule} from '@angular/material/input';
 import {MatRippleModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {MatSelectModule} from '@angular/material/select';
 import { CadastroClienteComponent } from 'app/cadastro-cliente/cadastro-cliente.component';
 import { CadastroAnimaisComponent } from 'app/cadastro-animais/cadastro-animais.component';
 import { ProdutosComponent } from 'app/produtos/produtos.component';
 import { ConsultasComponent } from 'app/consultas/consultas.component';
+import { SobrenosComponent } from 'app/sobrenos/sobrenos.component';
 
 @NgModule({
   imports: [
@@ -33,6 +35,7 @@ import { ConsultasComponent } from 'app/consultas/consultas.component';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    NgxDatatableModule
   ],
   declarations: [
     DashboardComponent,
@@ -43,6 +46,7 @@ import { ConsultasComponent } from 'app/consultas/consultas.component';
     NotificationsComponent,
     CadastroClienteComponent,
     CadastroAnimaisComponent,
+    SobrenosComponent,
     ProdutosComponent,
     ConsultasComponent,
     UserProfileComponent
