@@ -12,8 +12,8 @@
               <div class="row">
                 <div class="col-md-6 col-12">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Nome Completo" type="text" formControlName="nome">
-                  </mat-form-field>
+                    <input matInput placeholder="Nome Completo" type="text" formControlName="nome" required>
+                  </mat-form-field>                  
                 </div>
                 <div class="col-md-6 col-12">
                   <mat-form-field class="example-full-width">
@@ -24,7 +24,7 @@
               <div class="row">
                 <div class="col-md-4 col-12">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="CPF" type="text" formControlName="cpf">
+                    <input matInput placeholder="CPF" type="text" formControlName="cpf" required>
                   </mat-form-field>
                 </div>
                 <div class="col-md-4 col-12">
@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-md-4 col-12">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Endereco" type="text" formControlName="endereco">
+                    <input matInput placeholder="Endereco" type="text" formControlName="endereco" required>
                   </mat-form-field>
                 </div>
               </div>
@@ -50,7 +50,8 @@
                   </mat-form-field>
                 </div>
               </div>
-              <button mat-raised-button type="submit" class="btn btn-success pull-right ml-2">Adicionar</button>
+              <!-- <p>Form Status: {{ checkoutForm.status }}</p> -->
+              <button mat-raised-button type="submit" class="btn btn-success pull-right ml-2" [disabled]="!checkoutForm.valid">Adicionar</button>
               <button mat-raised-button class="btn btn-info pull-right" (click)="limpar()">Limpar</button>
               <div class="clearfix"></div>
             </form>
@@ -66,10 +67,10 @@
             <p class="card-category">Clientes já cadastrados</p>
           </div>
           <div class="card-body">
-              <ngx-datatable class="material" [rows]="rowsResultado"
-                [columns]="[{ name: 'Nome', prop: 'nome' }, { name: 'Email', prop: 'email' }, { name: 'Celular', prop: 'celular' }]" [columnMode]="ColumnMode.force"
-                [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [limit]="5">
-              </ngx-datatable>
+            <ngx-datatable class="material" [rows]="rowsResultado"
+              [columns]="[{ name: 'Nome', prop: 'nome' }, { name: 'Email', prop: 'email' }, { name: 'Celular', prop: 'celular' }]"
+              [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [limit]="5">
+            </ngx-datatable>
           </div>
         </div>
       </div>

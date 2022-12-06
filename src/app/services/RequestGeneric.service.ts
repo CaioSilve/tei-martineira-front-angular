@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class RequestService<T> {
 
-  apiURL = 'http://localhost:8081/';
+  apiURL = 'http://127.0.0.1:5007/';
 
   httpOptions = {
     header: new HttpHeaders({
@@ -27,5 +27,9 @@ export class RequestService<T> {
 
   public get(url, params?, headers?, data?): Observable<T> { 
     return this.request('get', url, this.httpOptions, null, params);
+  }
+
+  public post(url, body?, headers?, data?): Observable<T> { 
+    return this.request('post', url, this.httpOptions, body, null);
   }
 }

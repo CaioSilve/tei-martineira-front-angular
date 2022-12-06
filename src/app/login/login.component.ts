@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { Usuario } from 'app/models/usuario.model';
+import { RequestService } from 'app/services/RequestGeneric.service';
 
 @Component({
   selector: 'app-login',
@@ -8,9 +12,33 @@ import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  public msgErro: string;
+
+  constructor(private router: Router, private formBuilder: FormBuilder, private http: HttpClient, private requestService: RequestService<Usuario>) { }
+
+  checkoutForm = this.formBuilder.group({
+    usuario: '',
+    senha: ''
+  });
 
   ngOnInit(): void {
+  }
+
+  onSubmit(): void {
+    if(this.checkoutForm.value.usuario == "" || this.checkoutForm.value.senha == ""){
+      this.msgErro = 'Entre com um usuário e senha';
+      return;
+    }
+
+    this.http.get<any>('http://localhost:5007/usuario/get/' + this.checkoutForm.value.usuario)
+      .subscribe(resultado => {
+          if(this.checkoutForm.value.senha != resultado.senha){
+            this.msgErro = 'Senha não confere'
+            return;
+          }
+
+          this.router.navigate(['']);
+    });
   }
 
 }
