@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ColumnMode } from '@swimlane/ngx-datatable';
+import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
+import { str } from 'ajv';
 import { Cliente } from 'app/models/cliente.model';
 import { apiUrl } from 'environments/environment.prod';
 import { firstValueFrom } from 'rxjs';
@@ -39,9 +40,10 @@ export class CadastroAnimaisComponent implements OnInit {
   ];
 
   checkoutForm = this.formBuilder.group({
+    id: null,
     nome: ['', Validators.required],
     tipo: ['', Validators.required],
-    dono: {},
+    dono_id: [{}],
     raca: ['', Validators.required],
     idade: ''
   });
@@ -51,11 +53,14 @@ export class CadastroAnimaisComponent implements OnInit {
   public donos: Array<Cliente>;
 
   ColumnMode = ColumnMode;
+  SelectionType = SelectionType;
 
   ngOnInit(): void {
     firstValueFrom(this.http.get<any>(apiUrl.url + 'cliente/get')).then(resultado => {
       this.donos = resultado.clientes;
     });
+
+    this.attResultado();
   }
 
   tipoSelecionado(): boolean{
@@ -85,7 +90,16 @@ export class CadastroAnimaisComponent implements OnInit {
         });
   }
 
+  onSelect({ selected }) {
+    this.checkoutForm.patchValue(selected[0]);
+    this.checkoutForm.get('tipo').setValue(selected[0].tipo.id);
+    this.checkoutForm.get('dono_id').setValue(selected[0].dono_id.id);
+    this.tipoChange({value: selected[0].tipo.id})
+  }
+
   onSubmit(): void {
+    this.checkoutForm.get('tipo').setValue(this.tipos.find(x => x.id == this.checkoutForm.value.tipo).nome);
+    console.log(this.checkoutForm.value);
     firstValueFrom(this.http.post<any>(apiUrl.url + 'animal/create', this.checkoutForm.value)).then(resultado => {
       this.checkoutForm.reset();
       this.attResultado();
@@ -96,11 +110,23 @@ export class CadastroAnimaisComponent implements OnInit {
     this.checkoutForm.reset();
   }
 
+  editar(){
+    this.checkoutForm.get('tipo').setValue(this.tipos.find(x => x.id == this.checkoutForm.value.tipo).nome);
+    firstValueFrom(this.http.put<any>(apiUrl.url + 'animal/update/' + this.checkoutForm.value.id, this.checkoutForm.value)).then(resultado => {
+      this.checkoutForm.reset();
+      this.attResultado();
+    });
+  }
+
   attResultado(){
     this.rowsResultado = [];
     firstValueFrom(this.http.get<any>(apiUrl.url + 'animal/get')).then(resultado => {
       for(let animal of resultado.animais){
-        this.rowsResultado = [...this.rowsResultado, animal];
+        firstValueFrom(this.http.get<any>(apiUrl.url + 'cliente/get/' + animal.dono_id)).then(resultado => {
+          animal.dono_id = resultado
+          animal.tipo = this.tipos.find(x => x.nome == animal.tipo)
+          this.rowsResultado = [...this.rowsResultado, animal];
+        });
       }
     });
   }

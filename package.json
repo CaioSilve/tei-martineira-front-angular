@@ -17,7 +17,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "13.3.1",
+    "@angular/animations": "^13.3.1",
     "@angular/cdk": "^13.3.1",
     "@angular/common": "^13.3.1",
     "@angular/compiler": "^13.3.1",
@@ -46,6 +46,7 @@
     "jquery": "3.6.0",
     "lato-font": "^3.0.0",
     "moment": "2.29.1",
+    "ngx-toastr": "^16.0.1",
     "perfect-scrollbar": "1.5.5",
     "popper.js": "1.16.1",
     "rxjs": "^7.5.5",

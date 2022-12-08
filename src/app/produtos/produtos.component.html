@@ -37,8 +37,10 @@
                   </mat-form-field>
                 </div>
               </div>
-              <button mat-raised-button type="submit" class="btn btn-success pull-right ml-2">Adicionar</button>
+              <button mat-raised-button type="submit" class="btn btn-success pull-right ml-2" (click)="onSubmit()" *ngIf="checkoutForm.value.id == null" [disabled]="!checkoutForm.valid">Adicionar</button>
+              <button mat-raised-button type="submit" class="btn btn-primary pull-right ml-2" (click)="editar()" *ngIf="checkoutForm.value.id != null" [disabled]="!checkoutForm.valid">Editar</button>
               <button mat-raised-button class="btn btn-info pull-right" (click)="limpar()">Limpar</button>
+              <button mat-raised-button class="btn btn-danger pull-right mr-5" (click)="excluir()" *ngIf="checkoutForm.value.id != null">Excluir</button>
               <div class="clearfix"></div>
             </form>
           </div>
@@ -55,7 +57,7 @@
           <div class="card-body">
             <ngx-datatable class="material" [rows]="rowsResultado"
                 [columns]="[{ name: 'Descricão', prop: 'desc' }, { name: 'Tipo', prop: 'tipo.nome' }, { name: 'Quantidade', prop: 'qtde' }]" [columnMode]="ColumnMode.force"
-                [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [limit]="5">
+                [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [limit]="5" [selectionType]="SelectionType.single" (select)="onSelect($event)">
               </ngx-datatable>
           </div>
         </div>
