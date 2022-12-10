@@ -5,6 +5,7 @@ import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import { async, firstValueFrom, interval, lastValueFrom } from 'rxjs';
 import { apiUrl } from '../../environments/environment.prod';
 
+declare var $: any;
 
 @Component({
   selector: 'app-cadastro-cliente',
@@ -14,8 +15,6 @@ import { apiUrl } from '../../environments/environment.prod';
 export class CadastroClienteComponent implements OnInit {
 
   public rowsResultado: any = [];
-  public rowSelecionada: any;
-  public pessoasAPI:any = [];
 
   ColumnMode = ColumnMode;
   SelectionType = SelectionType;
@@ -44,6 +43,7 @@ export class CadastroClienteComponent implements OnInit {
   onSubmit(): void {
     firstValueFrom(this.http.post<any>(apiUrl.url + 'cliente/create', this.checkoutForm.value)).then(resultado => {
       this.checkoutForm.reset();
+      this.showNotification('done', 2, 'Inserção', 'Cliente inserido com sucesso');
       this.attResultado();
     });
   }
@@ -55,6 +55,7 @@ export class CadastroClienteComponent implements OnInit {
   editar(){
     firstValueFrom(this.http.put<any>(apiUrl.url + 'cliente/update/' + this.checkoutForm.value.id, this.checkoutForm.value)).then(resultado => {
       this.checkoutForm.reset();
+      this.showNotification('done', 2, 'Edição', 'Cliente editado com sucesso');
       this.attResultado();
     });
   }
@@ -62,6 +63,7 @@ export class CadastroClienteComponent implements OnInit {
   excluir() {
     firstValueFrom(this.http.delete<any>(apiUrl.url + 'cliente/delete/' + this.checkoutForm.value.id)).then(resultado => {
       this.checkoutForm.reset();
+      this.showNotification('done', 2, 'Exclusão', 'Cliente excluído com sucesso');
       this.attResultado();
     });
   }
@@ -81,4 +83,33 @@ export class CadastroClienteComponent implements OnInit {
     });
   }
 
+
+  showNotification(icone, cor, tipo, mensa) {
+    const type = ['', 'info', 'success', 'warning', 'danger'];
+
+    const msg = "<b>" + tipo + "</b>" + " - " + mensa;
+
+    $.notify({
+      icon: icone,
+      message: msg
+
+    }, {
+      type: type[cor],
+      timer: 300,
+      placement: {
+        from: 'bottom',
+        align: 'right'
+      },
+      template: '<div data-notify="container" class="col-xl-4 col-lg-4 col-11 col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
+        '<button mat-button  type="button" aria-hidden="true" class="close mat-button" data-notify="dismiss">  <i class="material-icons">close</i></button>' +
+        '<i class="material-icons" data-notify="icon">done</i> ' +
+        '<span data-notify="title">{1}</span> ' +
+        '<span data-notify="message">{2}</span>' +
+        '<div class="progress" data-notify="progressbar">' +
+        '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+        '</div>' +
+        '<a href="{3}" target="{4}" data-notify="url"></a>' +
+        '</div>'
+    });
+  }
 }

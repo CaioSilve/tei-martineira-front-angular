@@ -7,7 +7,7 @@ import { Cliente } from 'app/models/cliente.model';
 import { apiUrl } from 'environments/environment.prod';
 import { firstValueFrom } from 'rxjs';
 
-
+declare var $: any;
 
 class dogResponse{
   message = {}
@@ -75,14 +75,14 @@ export class CadastroAnimaisComponent implements OnInit {
       return;
 
     this.racas.push('Vira-Lata');
-    if(tipo.value == 1)
+    if(tipo.value == "Cachorro")
       this.http.get<dogResponse>('https://dog.ceo/api/breeds/list/all')
           .subscribe(resultado => {
             for(let raca of Object.keys(resultado.message))
               this.racas.push(raca);
           });
 
-    if(tipo.value == 2)
+    if(tipo.value == "Gato")
       this.http.get<Array<catResponse>>('https://api.thecatapi.com/v1/breeds')
         .subscribe(resultado => {
           for(let raca of resultado)
@@ -92,16 +92,14 @@ export class CadastroAnimaisComponent implements OnInit {
 
   onSelect({ selected }) {
     this.checkoutForm.patchValue(selected[0]);
-    this.checkoutForm.get('tipo').setValue(selected[0].tipo.id);
     this.checkoutForm.get('dono_id').setValue(selected[0].dono_id.id);
     this.tipoChange({value: selected[0].tipo.id})
   }
 
   onSubmit(): void {
-    this.checkoutForm.get('tipo').setValue(this.tipos.find(x => x.id == this.checkoutForm.value.tipo).nome);
-    console.log(this.checkoutForm.value);
     firstValueFrom(this.http.post<any>(apiUrl.url + 'animal/create', this.checkoutForm.value)).then(resultado => {
       this.checkoutForm.reset();
+      this.showNotification('done', 2, 'Inserção', 'Animal inserido com sucesso');
       this.attResultado();
     });
   }
@@ -111,9 +109,17 @@ export class CadastroAnimaisComponent implements OnInit {
   }
 
   editar(){
-    this.checkoutForm.get('tipo').setValue(this.tipos.find(x => x.id == this.checkoutForm.value.tipo).nome);
     firstValueFrom(this.http.put<any>(apiUrl.url + 'animal/update/' + this.checkoutForm.value.id, this.checkoutForm.value)).then(resultado => {
       this.checkoutForm.reset();
+      this.showNotification('done', 2, 'Edição', 'Animal editado com sucesso');
+      this.attResultado();
+    });
+  }
+
+  excluir() {
+    firstValueFrom(this.http.delete<any>(apiUrl.url + 'animal/delete/' + this.checkoutForm.value.id)).then(resultado => {
+      this.checkoutForm.reset();
+      this.showNotification('done', 2, 'Exclusão', 'Animal excluído com sucesso');
       this.attResultado();
     });
   }
@@ -124,13 +130,40 @@ export class CadastroAnimaisComponent implements OnInit {
       for(let animal of resultado.animais){
         firstValueFrom(this.http.get<any>(apiUrl.url + 'cliente/get/' + animal.dono_id)).then(resultado => {
           animal.dono_id = resultado
-          animal.tipo = this.tipos.find(x => x.nome == animal.tipo)
           this.rowsResultado = [...this.rowsResultado, animal];
         });
       }
     });
   }
 
+  showNotification(icone, cor, tipo, mensa) {
+    const type = ['', 'info', 'success', 'warning', 'danger'];
+
+    const msg = "<b>" + tipo + "</b>" + " - " + mensa;
+
+    $.notify({
+      icon: icone,
+      message: msg
+
+    }, {
+      type: type[cor],
+      timer: 300,
+      placement: {
+        from: 'bottom',
+        align: 'right'
+      },
+      template: '<div data-notify="container" class="col-xl-4 col-lg-4 col-11 col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
+        '<button mat-button  type="button" aria-hidden="true" class="close mat-button" data-notify="dismiss">  <i class="material-icons">close</i></button>' +
+        '<i class="material-icons" data-notify="icon">done</i> ' +
+        '<span data-notify="title">{1}</span> ' +
+        '<span data-notify="message">{2}</span>' +
+        '<div class="progress" data-notify="progressbar">' +
+        '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+        '</div>' +
+        '<a href="{3}" target="{4}" data-notify="url"></a>' +
+        '</div>'
+    });
+  }
 
 
 }

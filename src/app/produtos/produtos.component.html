@@ -8,19 +8,19 @@
             <p class="card-category"></p>
           </div>
           <div class="card-body">
-            <form>
+            <form [formGroup]="checkoutForm">
               <div class="row">
                 <div class="col-md-6 col-12">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Descricão" type="text" formControlName="desc">
+                    <input matInput placeholder="Descricão" type="text" formControlName="desc" required>
                   </mat-form-field>
                 </div>
                 <div class="col-md-6 col-12">
                   <mat-form-field appearance="fill">
                     <mat-label>Tipo</mat-label>
-                    <mat-select formControlName="tipo">
+                    <mat-select formControlName="tipo" required>
                       <mat-option></mat-option>
-                      <mat-option [value]="tipo.id" *ngFor="let tipo of tipos">{{ tipo.nome }}</mat-option>
+                      <mat-option [value]="tipo.nome" *ngFor="let tipo of tipos">{{ tipo.nome }}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -28,12 +28,12 @@
               <div class="row">
                 <div class="col-md-6 col-12">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Valor Unitário" type="text" formControlName="valorunit">
+                    <input matInput placeholder="Valor Unitário" type="text" formControlName="valorUnit">
                   </mat-form-field>
                 </div>
                 <div class="col-md-6 col-12">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Quantidade" type="text" formControlName="qtde">
+                    <input matInput placeholder="Quantidade" type="number" formControlName="qtde" required>
                   </mat-form-field>
                 </div>
               </div>
@@ -56,7 +56,7 @@
           </div>
           <div class="card-body">
             <ngx-datatable class="material" [rows]="rowsResultado"
-                [columns]="[{ name: 'Descricão', prop: 'desc' }, { name: 'Tipo', prop: 'tipo.nome' }, { name: 'Quantidade', prop: 'qtde' }]" [columnMode]="ColumnMode.force"
+                [columns]="[{ name: 'Descricão', prop: 'desc' }, { name: 'Tipo', prop: 'tipo' }, { name: 'Quantidade', prop: 'qtde' }, { name: 'Valor Total (R$)', prop: 'valorTotal' }]" [columnMode]="ColumnMode.force"
                 [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [limit]="5" [selectionType]="SelectionType.single" (select)="onSelect($event)">
               </ngx-datatable>
           </div>

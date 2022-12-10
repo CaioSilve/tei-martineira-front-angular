@@ -15,15 +15,14 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
 import { MatSelectModule } from '@angular/material/select';
 import { CadastroClienteComponent } from 'app/cadastro-cliente/cadastro-cliente.component';
 import { CadastroAnimaisComponent } from 'app/cadastro-animais/cadastro-animais.component';
 import { ProdutosComponent } from 'app/produtos/produtos.component';
 import { ConsultasComponent } from 'app/consultas/consultas.component';
 import { SobrenosComponent } from 'app/sobrenos/sobrenos.component';
+import { ExamesComponent } from 'app/exames/exames.component';
+import { ImportarComponent } from 'app/importar/importar.component';
 
 @NgModule({
   imports: [
@@ -37,10 +36,7 @@ import { SobrenosComponent } from 'app/sobrenos/sobrenos.component';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    NgxDatatableModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    NgxDatatableModule
   ],
   declarations: [
     DashboardComponent,
@@ -53,7 +49,9 @@ import { SobrenosComponent } from 'app/sobrenos/sobrenos.component';
     CadastroAnimaisComponent,
     SobrenosComponent,
     ProdutosComponent,
-    ConsultasComponent
+    ConsultasComponent,
+    ExamesComponent,
+    ImportarComponent
   ]
 })
 

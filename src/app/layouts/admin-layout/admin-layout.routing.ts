@@ -12,6 +12,9 @@ import { CadastroAnimaisComponent } from 'app/cadastro-animais/cadastro-animais.
 import { ProdutosComponent } from 'app/produtos/produtos.component';
 import { ConsultasComponent } from 'app/consultas/consultas.component';
 import { SobrenosComponent } from 'app/sobrenos/sobrenos.component';
+import { ExamesComponent } from 'app/exames/exames.component';
+import { ImportarComponent } from 'app/importar/importar.component';
+import { ExportarComponent } from 'app/exportar/exportar.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'login',                component: LoginComponent },
@@ -20,6 +23,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'clientes',             component: CadastroClienteComponent },
     { path: 'animais',              component: CadastroAnimaisComponent },
     { path: 'produtos',             component: ProdutosComponent },
+    { path: 'importar',             component: ImportarComponent },
+    { path: 'exportar',             component: ExportarComponent },
+    { path: 'exames',               component: ExamesComponent },
     { path: 'sobrenos',             component: SobrenosComponent},
     { path: 'consultas',            component: ConsultasComponent },
     { path: 'typography',           component: TypographyComponent },

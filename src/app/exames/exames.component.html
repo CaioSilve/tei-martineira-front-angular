@@ -1,0 +1,93 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-azul-escuro">
+                        <h4 class="card-title">Cadastro de Clientes</h4>
+                        <p class="card-category"></p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="checkoutForm">
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <div class="input-group">
+                                            <input matInput placeholder="Data" type="text" formControlName="data"
+                                            ngbDatepicker #d="ngbDatepicker" required>
+                                            <button (click)="d.toggle()"
+                                                class="material-icons md-18 text-white">date_range</button>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Email" type="email" formControlName="email">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="CPF" type="text" formControlName="cpf" required>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Cidade" type="text" formControlName="cidade">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Endereco" type="text" formControlName="endereco"
+                                            required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Celular" type="text" formControlName="celular">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Telefone" type="text" formControlName="telefone">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- <p>Form Status: {{ checkoutForm.status }}</p> -->
+                            <button mat-raised-button type="submit" class="btn btn-success pull-right ml-2"
+                                (click)="onSubmit()" *ngIf="checkoutForm.value.id == null"
+                                [disabled]="!checkoutForm.valid">Adicionar</button>
+                            <button mat-raised-button type="submit" class="btn btn-primary pull-right ml-2"
+                                (click)="editar()" *ngIf="checkoutForm.value.id != null"
+                                [disabled]="!checkoutForm.valid">Editar</button>
+                            <button mat-raised-button class="btn btn-info pull-right" (click)="limpar()">Limpar</button>
+                            <button mat-raised-button class="btn btn-danger pull-right mr-5" (click)="excluir()"
+                                *ngIf="checkoutForm.value.id != null">Excluir</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-azul-escuro">
+                        <h4 class="card-title ">Clientes</h4>
+                        <p class="card-category">Clientes já cadastrados</p>
+                    </div>
+                    <div class="card-body">
+                        <ngx-datatable class="material" [rows]="rowsResultado"
+                            [columns]="[{ name: 'Nome', prop: 'nome' }, { name: 'Email', prop: 'email' }, { name: 'Celular', prop: 'celular' }]"
+                            [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" rowHeight="auto"
+                            [limit]="5" [selectionType]="SelectionType.single" (select)="onSelect($event)">
+                        </ngx-datatable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

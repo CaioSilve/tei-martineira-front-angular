@@ -3,42 +3,31 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import { apiUrl } from 'environments/environment.prod';
-import { firstValueFrom } from 'rxjs';
+import { async, firstValueFrom, interval, lastValueFrom } from 'rxjs';
 
 declare var $: any;
 
 @Component({
-  selector: 'app-produtos',
-  templateUrl: './produtos.component.html',
-  styleUrls: ['./produtos.component.scss']
+  selector: 'app-exames',
+  templateUrl: './exames.component.html',
+  styleUrls: ['./exames.component.scss']
 })
-export class ProdutosComponent implements OnInit {
+export class ExamesComponent implements OnInit {
 
-  public rowsResultado = [];
+  public rowsResultado: any = [];
+
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
+
+  checkoutForm = this.formBuilder.group({
+    id: null,
+    data: ['', Validators.required]
+  });
 
   ColumnMode = ColumnMode;
   SelectionType = SelectionType;
 
-  tipos = [
-    { id: 1, nome: 'Médico' },
-    { id: 2, nome: 'Brinquedo' },
-    { id: 3, nome: 'Alimento' },
-    { id: 4, nome: 'Vestimenta' },
-    { id: 5, nome: 'Eletrônico' },
-  ]
-
-  checkoutForm = this.formBuilder.group({
-    id: null,
-    desc: ['', Validators.required],
-    tipo: ['', Validators.required],
-    valorUnit: [''],
-    qtde: ['', Validators.required]
-  });
-
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
-
   ngOnInit(): void {
-    this.attResultado();
+    this.attResultado();  
   }
 
   onSelect({ selected }) {
@@ -46,9 +35,9 @@ export class ProdutosComponent implements OnInit {
   }
 
   onSubmit(): void {
-    firstValueFrom(this.http.post<any>(apiUrl.url + 'produto/create', this.checkoutForm.value)).then(resultado => {
+    firstValueFrom(this.http.post<any>(apiUrl.url + 'cliente/create', this.checkoutForm.value)).then(resultado => {
       this.checkoutForm.reset();
-      this.showNotification('done', 2, 'Inserção', 'Produto inserido com sucesso');
+      this.showNotification('done', 2, 'Inserção', 'Cliente inserido com sucesso');
       this.attResultado();
     });
   }
@@ -57,31 +46,37 @@ export class ProdutosComponent implements OnInit {
     this.checkoutForm.reset();
   }
 
-  editar() {
-    firstValueFrom(this.http.put<any>(apiUrl.url + 'produto/update/' + this.checkoutForm.value.id, this.checkoutForm.value)).then(resultado => {
+  editar(){
+    firstValueFrom(this.http.put<any>(apiUrl.url + 'cliente/update/' + this.checkoutForm.value.id, this.checkoutForm.value)).then(resultado => {
       this.checkoutForm.reset();
-      this.showNotification('done', 2, 'Edição', 'Produto editado com sucesso');
+      this.showNotification('done', 2, 'Edição', 'Cliente editado com sucesso');
       this.attResultado();
     });
   }
 
   excluir() {
-    firstValueFrom(this.http.delete<any>(apiUrl.url + 'produto/delete/' + this.checkoutForm.value.id)).then(resultado => {
+    firstValueFrom(this.http.delete<any>(apiUrl.url + 'cliente/delete/' + this.checkoutForm.value.id)).then(resultado => {
       this.checkoutForm.reset();
-      this.showNotification('done', 2, 'Exclusão', 'Produto excluído com sucesso');
+      this.showNotification('done', 2, 'Exclusão', 'Cliente excluído com sucesso');
       this.attResultado();
     });
   }
 
-  attResultado() {
+  attResultado(){
     this.rowsResultado = [];
-    firstValueFrom(this.http.get<any>(apiUrl.url + 'produto/get')).then(resultado => {
-      for (let produto of resultado.produtos) {
-        produto.valorTotal = Number(produto.qtde) * parseFloat(produto.valorUnit);
-        this.rowsResultado = [...this.rowsResultado, produto];
+    // firstValueFrom(this.http.get<any>('https://geradorbrasileiro.com/api/faker/pessoa?limit=3')).then(resultado => {
+    //   for(let pessoa of resultado.values){
+    //     this.rowsResultado = [...this.rowsResultado, pessoa];
+    //   }
+    // });
+
+    firstValueFrom(this.http.get<any>(apiUrl.url + 'cliente/get')).then(resultado => {
+      for(let cliente of resultado.clientes){
+        this.rowsResultado = [...this.rowsResultado, cliente];
       }
     });
   }
+
 
   showNotification(icone, cor, tipo, mensa) {
     const type = ['', 'info', 'success', 'warning', 'danger'];
@@ -112,4 +107,3 @@ export class ProdutosComponent implements OnInit {
     });
   }
 }
-

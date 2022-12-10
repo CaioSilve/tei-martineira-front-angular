@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
+import { ImportarComponent } from './importar/importar.component';
+import { ExportarComponent } from './exportar/exportar.component';
 
 
 @NgModule({
@@ -26,6 +28,7 @@ import { LoginComponent } from './login/login.component';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
+    ExportarComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

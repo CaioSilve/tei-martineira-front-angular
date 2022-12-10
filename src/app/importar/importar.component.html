@@ -1,0 +1,28 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-azul-escuro">
+                        <h4 class="card-title">Importação de dados</h4>
+                        <p class="card-category"></p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Url" type="text" formControlName="url">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            Caso não queira usar a url, dentro da raiz do back há um arquivo input.json. Siga o seu modelo.
+                        </div>
+                        <button mat-raised-button class="btn btn-info pull-right" (click)="importar()">Importar</button>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

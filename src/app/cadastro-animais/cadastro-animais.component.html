@@ -20,7 +20,7 @@
                     <mat-label>Tipo</mat-label>
                     <mat-select formControlName="tipo" (selectionChange)="tipoChange($event)" required>
                       <mat-option></mat-option>
-                      <mat-option [value]="tipo.id" *ngFor="let tipo of tipos">{{ tipo.nome }}</mat-option>
+                      <mat-option [value]="tipo.nome" *ngFor="let tipo of tipos">{{ tipo.nome }}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -69,7 +69,7 @@
           </div>
           <div class="card-body">
             <ngx-datatable class="material" [rows]="rowsResultado"
-                [columns]="[{ name: 'Nome', prop: 'nome' }, { name: 'Dono', prop: 'dono_id.nome' }, { name: 'Tipo', prop: 'tipo.nome' }, { name: 'Idade', prop: 'idade' }]" [columnMode]="ColumnMode.force"
+                [columns]="[{ name: 'Nome', prop: 'nome' }, { name: 'Dono', prop: 'dono_id.nome' }, { name: 'Tipo', prop: 'tipo' }, { name: 'Idade', prop: 'idade' }]" [columnMode]="ColumnMode.force"
                 [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [limit]="5" [selectionType]="SelectionType.single" (select)="onSelect($event)">
               </ngx-datatable>
           </div>
