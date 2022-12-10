@@ -93,7 +93,7 @@ export class CadastroAnimaisComponent implements OnInit {
   onSelect({ selected }) {
     this.checkoutForm.patchValue(selected[0]);
     this.checkoutForm.get('dono_id').setValue(selected[0].dono_id.id);
-    this.tipoChange({value: selected[0].tipo.id})
+    this.tipoChange({value: selected[0].tipo})
   }
 
   onSubmit(): void {

@@ -7,30 +7,30 @@ import { CustomDateAdapter, CustomDateParserFormatter } from 'app/utils/formUtil
 import { apiUrl } from 'environments/environment.prod';
 import { firstValueFrom} from 'rxjs';
 
+
+
 declare var $: any;
 
 @Component({
-  selector: 'app-exames',
-  templateUrl: './exames.component.html',
-  styleUrls: ['./exames.component.scss'],
+  selector: 'app-pedidos',
+  templateUrl: './pedidos.component.html',
+  styleUrls: ['./pedidos.component.scss'],
   providers: [{provide: NgbDateAdapter, useClass: CustomDateAdapter},
               {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}]
 })
-export class ExamesComponent implements OnInit {
+export class PedidosComponent implements OnInit {
 
   public rowsResultado: any = [];
-  public pacientes = [];
+  public clientes = [];
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
 
   checkoutForm = this.formBuilder.group({
     id: null,
     data: ['', Validators.required],
-    paciente: ['', Validators.required],
-    procedimento: ['', Validators.required],
-    resultado: [''],
-    horaInicio: ['', Validators.required],
-    horaFim: ['', Validators.required]
+    cliente_id: ['', Validators.required],
+    precoTotal: ['', Validators.required],
+    produtos: ['']
   });
 
   ColumnMode = ColumnMode;
@@ -38,12 +38,8 @@ export class ExamesComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkoutForm.get('data').setValue(new Date().toLocaleDateString());
-    var data = new Date();
-    this.checkoutForm.get('horaFim').setValue(data.toLocaleTimeString());
-    data.setHours(data.getHours() - 2);
-    this.checkoutForm.get('horaInicio').setValue(data.toLocaleTimeString());
-    firstValueFrom(this.http.get<any>(apiUrl.url + 'animal/get')).then(resultado => {
-      this.pacientes = resultado.animais;
+    firstValueFrom(this.http.get<any>(apiUrl.url + 'cliente/get')).then(resultado => {
+      this.clientes = resultado.clientes;
     });
 
     this.attResultado();  
@@ -54,9 +50,9 @@ export class ExamesComponent implements OnInit {
   }
 
   onSubmit(): void {
-    firstValueFrom(this.http.post<any>(apiUrl.url + 'exame/create', this.checkoutForm.value)).then(resultado => {
+    firstValueFrom(this.http.post<any>(apiUrl.url + 'pedido/create', this.checkoutForm.value)).then(resultado => {
       this.checkoutForm.reset();
-      this.showNotification('done', 2, 'Inserção', 'Exame inserido com sucesso');
+      this.showNotification('done', 2, 'Inserção', 'Pedido inserido com sucesso');
       this.attResultado();
     });
   }
@@ -66,17 +62,17 @@ export class ExamesComponent implements OnInit {
   }
 
   editar(){
-    firstValueFrom(this.http.put<any>(apiUrl.url + 'exame/update/' + this.checkoutForm.value.id, this.checkoutForm.value)).then(resultado => {
+    firstValueFrom(this.http.put<any>(apiUrl.url + 'pedido/update/' + this.checkoutForm.value.id, this.checkoutForm.value)).then(resultado => {
       this.checkoutForm.reset();
-      this.showNotification('done', 2, 'Edição', 'Exame editado com sucesso');
+      this.showNotification('done', 2, 'Edição', 'Pedido editado com sucesso');
       this.attResultado();
     });
   }
 
   excluir() {
-    firstValueFrom(this.http.delete<any>(apiUrl.url + 'exame/delete/' + this.checkoutForm.value.id)).then(resultado => {
+    firstValueFrom(this.http.delete<any>(apiUrl.url + 'pedido/delete/' + this.checkoutForm.value.id)).then(resultado => {
       this.checkoutForm.reset();
-      this.showNotification('done', 2, 'Exclusão', 'Exame excluído com sucesso');
+      this.showNotification('done', 2, 'Exclusão', 'Pedido excluído com sucesso');
       this.attResultado();
     });
   }
@@ -84,11 +80,11 @@ export class ExamesComponent implements OnInit {
   attResultado(){
     this.rowsResultado = [];
 
-    firstValueFrom(this.http.get<any>(apiUrl.url + 'exame/get')).then(resultado => {
-      for(let exame of resultado.exames){
-        firstValueFrom(this.http.get<any>(apiUrl.url + 'animal/get/' + exame.paciente)).then(resultado => {
-          exame.dono_id = resultado
-          this.rowsResultado = [...this.rowsResultado, exame];
+    firstValueFrom(this.http.get<any>(apiUrl.url + 'pedido/get')).then(resultado => {
+      for(let pedido of resultado.pedidos){
+        firstValueFrom(this.http.get<any>(apiUrl.url + 'cliente/get/' + pedido.cliente_id)).then(resultado => {
+          pedido.cliente_id = resultado
+          this.rowsResultado = [...this.rowsResultado, pedido];
         });
       }
     });
@@ -123,4 +119,5 @@ export class ExamesComponent implements OnInit {
         '</div>'
     });
   }
+
 }

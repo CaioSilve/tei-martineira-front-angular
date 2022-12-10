@@ -10,11 +10,11 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { LoginComponent } from 'app/login/login.component';
 import { CadastroAnimaisComponent } from 'app/cadastro-animais/cadastro-animais.component';
 import { ProdutosComponent } from 'app/produtos/produtos.component';
-import { ConsultasComponent } from 'app/consultas/consultas.component';
 import { SobrenosComponent } from 'app/sobrenos/sobrenos.component';
 import { ExamesComponent } from 'app/exames/exames.component';
 import { ImportarComponent } from 'app/importar/importar.component';
 import { ExportarComponent } from 'app/exportar/exportar.component';
+import { PedidosComponent } from 'app/pedidos/pedidos.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'login',                component: LoginComponent },
@@ -26,8 +26,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'importar',             component: ImportarComponent },
     { path: 'exportar',             component: ExportarComponent },
     { path: 'exames',               component: ExamesComponent },
+    { path: 'pedidos',              component: PedidosComponent },
     { path: 'sobrenos',             component: SobrenosComponent},
-    { path: 'consultas',            component: ConsultasComponent },
     { path: 'typography',           component: TypographyComponent },
     { path: 'notifications',        component: NotificationsComponent }
 ];

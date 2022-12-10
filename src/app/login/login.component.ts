@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Usuario } from 'app/models/usuario.model';
 import { RequestService } from 'app/services/RequestGeneric.service';
+import { apiUrl } from 'environments/environment.prod';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.http.get<any>('http://localhost:5007/usuario/get/' + this.checkoutForm.value.usuario)
+    this.http.get<any>(apiUrl.url + 'usuario/get/' + this.checkoutForm.value.usuario)
       .subscribe(resultado => {
           if(this.checkoutForm.value.senha != resultado.senha){
             this.msgErro = 'Senha não confere'

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { TableListComponent } from '../../table-list/table-list.component';
@@ -19,10 +20,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { CadastroClienteComponent } from 'app/cadastro-cliente/cadastro-cliente.component';
 import { CadastroAnimaisComponent } from 'app/cadastro-animais/cadastro-animais.component';
 import { ProdutosComponent } from 'app/produtos/produtos.component';
-import { ConsultasComponent } from 'app/consultas/consultas.component';
 import { SobrenosComponent } from 'app/sobrenos/sobrenos.component';
 import { ExamesComponent } from 'app/exames/exames.component';
 import { ImportarComponent } from 'app/importar/importar.component';
+import { PedidosComponent } from 'app/pedidos/pedidos.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { ImportarComponent } from 'app/importar/importar.component';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    NgbModule
   ],
   declarations: [
     DashboardComponent,
@@ -49,7 +51,7 @@ import { ImportarComponent } from 'app/importar/importar.component';
     CadastroAnimaisComponent,
     SobrenosComponent,
     ProdutosComponent,
-    ConsultasComponent,
+    PedidosComponent,
     ExamesComponent,
     ImportarComponent
   ]
